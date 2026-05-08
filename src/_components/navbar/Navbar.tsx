@@ -1,24 +1,23 @@
 "use client";
 import { useEffect, useState } from "react";
 import styles from "./navbar.module.css";
+import { NavCategory } from "@/lib/getPageStructure";
+import { useActivePage } from "@/hooks/useActivePage";
 
-export default function Navbar() {
-    const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+export default function Navbar({ categories }: { categories: NavCategory[] }) {
+    const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
+    const { activePage, setActivePage } = useActivePage();
 
     useEffect(() => {
-        console.log(selectedCategories);
-    }, [selectedCategories]);
+        console.log(expandedCategories);
+    }, [expandedCategories]);
 
-    const onCategoryClick = (category: string) => {
-        if (selectedCategories.includes(category)) {
-            setSelectedCategories(
-                selectedCategories.filter((c) => c !== category)
-            );
-            return;
-        } else {
-            setSelectedCategories([...selectedCategories, category]);
-        }
-    };
+    const onCategoryClick = (slug: string) =>
+        setExpandedCategories((prev) =>
+            prev.includes(slug)
+                ? prev.filter((s) => s !== slug)
+                : [...prev, slug]
+        );
 
     return (
         <nav className={styles.container}>
@@ -28,96 +27,54 @@ export default function Navbar() {
                 Kompletova
             </h1>
             <ul className={styles.categories}>
-                <li className={styles.category}>
-                    <button
-                        onClick={() => onCategoryClick("about")}
-                        className={styles.categoryButton}
-                    >
-                        <span className={styles.categoryTitle}>About</span>
-                        <span
-                            className={
-                                styles.categoryIcon +
-                                (selectedCategories.includes("about")
-                                    ? " " + styles.expanded
-                                    : "")
-                            }
-                        >
-                            v
-                        </span>
-                    </button>
-                    <ul
-                        className={
-                            styles.pages +
-                            (selectedCategories.includes("about")
-                                ? " " + styles.expanded
-                                : "")
-                        }
-                    >
-                        <li className={styles.pageLink}>Education</li>
-                        <li className={styles.pageLink}>Experience</li>
-                        <li className={styles.pageLink}>Skills</li>
-                    </ul>
-                </li>
-                <li className={styles.category}>
-                    <button
-                        onClick={() => onCategoryClick("projects")}
-                        className={styles.categoryButton}
-                    >
-                        <span className={styles.categoryTitle}>Projects</span>
-                        <span
-                            className={
-                                styles.categoryIcon +
-                                (selectedCategories.includes("projects")
-                                    ? " " + styles.expanded
-                                    : "")
-                            }
-                        >
-                            v
-                        </span>
-                    </button>
-                    <ul
-                        className={
-                            styles.pages +
-                            (selectedCategories.includes("projects")
-                                ? " " + styles.expanded
-                                : "")
-                        }
-                    >
-                        <li className={styles.pageLink}>Project 1</li>
-                        <li className={styles.pageLink}>Project 2</li>
-                        <li className={styles.pageLink}>Project 3</li>
-                    </ul>
-                </li>
-                <li className={styles.category}>
-                    <button
-                        onClick={() => onCategoryClick("contact")}
-                        className={styles.categoryButton}
-                    >
-                        <span className={styles.categoryTitle}>Contact</span>
-                        <span
-                            className={
-                                styles.categoryIcon +
-                                (selectedCategories.includes("contact")
-                                    ? " " + styles.expanded
-                                    : "")
-                            }
-                        >
-                            v
-                        </span>
-                    </button>
-                    <ul
-                        className={
-                            styles.pages +
-                            (selectedCategories.includes("contact")
-                                ? " " + styles.expanded
-                                : "")
-                        }
-                    >
-                        <li className={styles.pageLink}>Email</li>
-                        <li className={styles.pageLink}>Substack</li>
-                        <li className={styles.pageLink}>GitHub</li>
-                    </ul>
-                </li>
+                {categories.map((category) => {
+                    const isExpanded = expandedCategories.includes(
+                        category.slug
+                    );
+                    return (
+                        <li key={category.slug} className={styles.category}>
+                            <button
+                                onClick={() => onCategoryClick(category.slug)}
+                                className={styles.categoryButton}
+                            >
+                                <span className={styles.categoryTitle}>
+                                    {category.name}
+                                </span>
+                                <span
+                                    className={
+                                        styles.categoryIcon +
+                                        (isExpanded
+                                            ? " " + styles.expanded
+                                            : "")
+                                    }
+                                >
+                                    v
+                                </span>
+                            </button>
+                            <ul
+                                className={
+                                    styles.pages +
+                                    (isExpanded ? " " + styles.expanded : "")
+                                }
+                            >
+                                {category.pages.map((page) => (
+                                    <li
+                                        key={page.slug}
+                                        className={
+                                            styles.pageLink +
+                                            (activePage === page.slug
+                                                ? " " + styles.activePage
+                                                : "")
+                                        }
+                                        onClick={() => setActivePage(page.slug)}
+                                    >
+                                        {page.name}
+                                    </li>
+                                ))}
+                            </ul>
+                        </li>
+                    );
+                })}
             </ul>
         </nav>
     );
