@@ -114,7 +114,7 @@ export default function Navbar() {
                         }
                     >
                         <li className={styles.pageLink}>Email</li>
-                        <li className={styles.pageLink}>LinkedIn</li>
+                        <li className={styles.pageLink}>Substack</li>
                         <li className={styles.pageLink}>GitHub</li>
                     </ul>
                 </li>
