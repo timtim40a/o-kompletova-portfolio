@@ -1,0 +1,35 @@
+.container {
+    grid-column: 1;
+    grid-row: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: var(--nav-width);
+    padding: 1rem;
+}
+
+.categories {
+    list-style: none;
+}
+
+.category {
+    margin-bottom: 1rem;
+}
+
+.categoryButton {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: none;
+    background: none;
+    font-size: 1.25rem;
+    width: 100%;
+}
+
+.categoryButton:hover {
+    text-decoration: dashed underline;
+}
