@@ -30,60 +30,68 @@ export default function Navbar({ categories }: { categories: NavCategory[] }) {
             }
         >
             <h1 className={styles.title}>
-                Olena
-                <br />
+                {"Olena "}
+                <br className={styles.break} />
                 Kompletova
             </h1>
-            <ul className={styles.categories}>
-                {categories.map((category) => {
-                    const isExpanded = expandedCategories.includes(
-                        category.slug
-                    );
-                    return (
-                        <li key={category.slug} className={styles.category}>
-                            <button
-                                onClick={() => onCategoryClick(category.slug)}
-                                className={styles.categoryButton}
-                            >
-                                <span className={styles.categoryTitle}>
-                                    {category.name}
-                                </span>
-                                <span
+            <div className={styles.tableOfContents}>
+                <ul className={styles.categories}>
+                    {categories.map((category) => {
+                        const isExpanded = expandedCategories.includes(
+                            category.slug
+                        );
+                        return (
+                            <li key={category.slug} className={styles.category}>
+                                <button
+                                    onClick={() =>
+                                        onCategoryClick(category.slug)
+                                    }
+                                    className={styles.categoryButton}
+                                >
+                                    <span className={styles.categoryTitle}>
+                                        {category.name}
+                                    </span>
+                                    <span
+                                        className={
+                                            styles.categoryIcon +
+                                            (isExpanded
+                                                ? " " + styles.expanded
+                                                : "")
+                                        }
+                                    >
+                                        v
+                                    </span>
+                                </button>
+                                <ul
                                     className={
-                                        styles.categoryIcon +
+                                        styles.pages +
                                         (isExpanded
                                             ? " " + styles.expanded
                                             : "")
                                     }
                                 >
-                                    v
-                                </span>
-                            </button>
-                            <ul
-                                className={
-                                    styles.pages +
-                                    (isExpanded ? " " + styles.expanded : "")
-                                }
-                            >
-                                {category.pages.map((page) => (
-                                    <li
-                                        key={page.slug}
-                                        className={
-                                            styles.pageLink +
-                                            (activePage === page.slug
-                                                ? " " + styles.activePage
-                                                : "")
-                                        }
-                                        onClick={() => setActivePage(page.slug)}
-                                    >
-                                        {page.name}
-                                    </li>
-                                ))}
-                            </ul>
-                        </li>
-                    );
-                })}
-            </ul>
+                                    {category.pages.map((page) => (
+                                        <li
+                                            key={page.slug}
+                                            className={
+                                                styles.pageLink +
+                                                (activePage === page.slug
+                                                    ? " " + styles.activePage
+                                                    : "")
+                                            }
+                                            onClick={() =>
+                                                setActivePage(page.slug)
+                                            }
+                                        >
+                                            {page.name}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </li>
+                        );
+                    })}
+                </ul>
+            </div>
             <img
                 src="/arrow.svg"
                 alt="arrow"
