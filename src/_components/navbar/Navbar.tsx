@@ -7,6 +7,7 @@ import { useActivePage } from "@/hooks/useActivePage";
 export default function Navbar({ categories }: { categories: NavCategory[] }) {
     const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
     const { activePage, setActivePage } = useActivePage();
+    const [isNavbarVisible, setIsNavbarVisible] = useState(true);
 
     useEffect(() => {
         console.log(expandedCategories);
@@ -19,8 +20,15 @@ export default function Navbar({ categories }: { categories: NavCategory[] }) {
                 : [...prev, slug]
         );
 
+    const onArrowClick = (e: React.MouseEvent<HTMLImageElement>) =>
+        setIsNavbarVisible((prev) => !prev);
+
     return (
-        <nav className={styles.container}>
+        <nav
+            className={
+                styles.container + (isNavbarVisible ? "" : " " + styles.hidden)
+            }
+        >
             <h1 className={styles.title}>
                 Olena
                 <br />
@@ -76,6 +84,15 @@ export default function Navbar({ categories }: { categories: NavCategory[] }) {
                     );
                 })}
             </ul>
+            <img
+                src="/arrow.svg"
+                alt="arrow"
+                className={
+                    styles.arrowIcon +
+                    (isNavbarVisible ? "" : " " + styles.expanded)
+                }
+                onClick={onArrowClick}
+            />
         </nav>
     );
 }

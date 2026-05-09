@@ -21,22 +21,6 @@
     }
 }
 
-@media (max-width: 600px) {
-    .main {
-        padding: 48px 24px;
-    }
-
-    .intro {
-        gap: 16px;
-    }
-
-    .intro h1 {
-        font-size: 32px;
-        line-height: 40px;
-        letter-spacing: -1.92px;
-    }
-}
-
 @media (prefers-color-scheme: dark) {
     .logo {
         filter: invert();

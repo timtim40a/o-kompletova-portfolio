@@ -2,6 +2,8 @@
     --background: #e0e0e0;
     --foreground: #171717;
     --nav-width: 240px;
+    --shadow:
+        rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -49,6 +51,25 @@ main {
     grid-template-rows: auto 1fr;
     width: 100%;
     padding: 60px 120px;
+}
+
+@media (max-width: 1000px) {
+    main {
+        padding: 30px 60px;
+    }
+}
+@media (max-width: 750px) {
+    main {
+        padding: 20px 30px;
+    }
+}
+
+@media (max-width: 500px) {
+    main {
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+    }
 }
 
 @media (prefers-color-scheme: dark) {

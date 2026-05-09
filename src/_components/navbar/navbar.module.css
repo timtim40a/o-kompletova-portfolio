@@ -10,6 +10,7 @@
     width: var(--nav-width);
     padding: 1rem;
     overflow-y: scroll;
+    transition: all 0.3s ease;
 }
 
 .categories {
@@ -60,4 +61,58 @@
     margin-bottom: 0.5rem;
     font-size: 1rem;
     cursor: pointer;
+}
+
+.pageLink.activePage {
+    font-weight: bold;
+}
+
+.arrowIcon {
+    display: none;
+}
+
+@media (max-width: 1000px) {
+    .container {
+        width: calc(var(--nav-width) / 1.5);
+        padding: 0.5rem;
+    }
+
+    .categoryButton {
+        font-size: 1rem;
+    }
+
+    .pageLink {
+        font-size: 0.875rem;
+    }
+
+    .title {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .container {
+        height: 50%;
+        width: 100%;
+        align-items: center;
+        box-shadow: var(--shadow);
+    }
+    .container.hidden {
+        transform: translateY(-90%);
+    }
+
+    .categoryButton {
+        width: calc(var(--nav-width) / 1.5);
+    }
+
+    .arrowIcon {
+        display: inline-block;
+        width: 70%;
+        transform: rotateX(180deg);
+        transition: all 0.3s ease;
+    }
+
+    .arrowIcon.expanded {
+        transform: rotateX(0deg);
+    }
 }
