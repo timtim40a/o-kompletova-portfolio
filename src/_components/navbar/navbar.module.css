@@ -8,6 +8,7 @@
     top: 0;
     left: 0;
     width: var(--nav-width);
+    height: 80vh;
     padding: 1rem;
     transition: all 0.3s ease;
 }
@@ -99,10 +100,16 @@
 
 @media (max-width: 500px) {
     .container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
         max-height: 50vh;
         width: 100%;
         align-items: center;
         box-shadow: var(--shadow);
+        background-color: var(--background);
     }
     .container.hidden {
         transform: translateY(-90%);
