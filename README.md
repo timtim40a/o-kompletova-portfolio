@@ -13,3 +13,5 @@
 6. You are ready to go! 
 
 > PS. Images are kinda not supported yet, but I will revisit this in a bit.
+
+>PPS. Git can ask you to sign in at any time. It should be straightforward, but if it isn't you can always do it through the terminal, just specifying the email and your nickname. Text me if anything is unclear, or goes wrong. I am always thrilled to help :)
