@@ -15,7 +15,9 @@ type PageMeta = {
 function MarkdownPage() {
     const searchParams = useSearchParams();
     const page = searchParams.get("page") || "home";
-    const capitalized = page.charAt(0).toUpperCase() + page.slice(1);
+    const capitalized = page.includes("/")
+        ? page.charAt(0).toUpperCase() + page.slice(1)
+        : page;
     const [markdown, setMarkdown] = useState("");
     const title = page ? page.replace(/-/g, " ") : "No page selected";
 

@@ -3,22 +3,29 @@ import { useEffect, useState } from "react";
 import styles from "./navbar.module.css";
 import { NavCategory } from "@/lib/getPageStructure";
 import { useActivePage } from "@/hooks/useActivePage";
+import Link from "next/link";
 
 export default function Navbar({ categories }: { categories: NavCategory[] }) {
     const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
     const { activePage, setActivePage } = useActivePage();
-    const [isNavbarVisible, setIsNavbarVisible] = useState(true);
+    const [isNavbarVisible, setIsNavbarVisible] = useState(false);
 
     useEffect(() => {
         console.log(expandedCategories);
     }, [expandedCategories]);
 
-    const onCategoryClick = (slug: string) =>
+    const onCategoryClick = (slug: string) => {
         setExpandedCategories((prev) =>
             prev.includes(slug)
                 ? prev.filter((s) => s !== slug)
                 : [...prev, slug]
         );
+    };
+
+    const onPageClick = (slug: string) => {
+        setActivePage(slug);
+        setIsNavbarVisible(false);
+    };
 
     const onArrowClick = (e: React.MouseEvent<HTMLImageElement>) =>
         setIsNavbarVisible((prev) => !prev);
@@ -29,7 +36,7 @@ export default function Navbar({ categories }: { categories: NavCategory[] }) {
                 styles.container + (isNavbarVisible ? "" : " " + styles.hidden)
             }
         >
-            <h1 className={styles.title}>
+            <h1 className={styles.title} onClick={() => onPageClick("")}>
                 {"Olena "}
                 <br className={styles.break} />
                 Kompletova
@@ -80,7 +87,7 @@ export default function Navbar({ categories }: { categories: NavCategory[] }) {
                                                     : "")
                                             }
                                             onClick={() =>
-                                                setActivePage(page.slug)
+                                                onPageClick(page.slug)
                                             }
                                         >
                                             {page.name}
