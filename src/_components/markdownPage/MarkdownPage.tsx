@@ -26,11 +26,12 @@ function MarkdownPage() {
             .then((text) => setMarkdown(text));
     }, [page]);
 
-    if (!markdown) return <p>Page not found.</p>;
+    if (!markdown)
+        return <p className={styles.pageNotFound}>Page not found.</p>;
 
     return (
         <article className={styles.article}>
-            <p>{title}</p>
+            <p className={styles.fileTitle}>{title}</p>
             <ReactMarkdown
                 components={{
                     hr() {
