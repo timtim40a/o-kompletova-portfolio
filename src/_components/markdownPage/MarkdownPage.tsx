@@ -14,15 +14,14 @@ type PageMeta = {
 
 function MarkdownPage() {
     const searchParams = useSearchParams();
-    const page = searchParams.get("page") || "";
+    const page = searchParams.get("page") || "home";
     const capitalized = page.charAt(0).toUpperCase() + page.slice(1);
     const [markdown, setMarkdown] = useState("");
     const title = page ? page.replace(/-/g, " ") : "No page selected";
 
     useEffect(() => {
-        if (!page) return;
         fetch(`/pages/${capitalized}.md`)
-            .then((res) => res.text())
+            .then((res) => (res.ok ? res.text() : ""))
             .then((text) => setMarkdown(text));
     }, [page]);
 

@@ -108,6 +108,7 @@
         max-height: 50vh;
         width: 100%;
         align-items: center;
+        justify-content: space-between;
         box-shadow: var(--shadow);
         background-color: var(--background);
     }
