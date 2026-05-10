@@ -22,8 +22,8 @@ export default async function RootLayout({
                 <main>
                     <Suspense fallback={<div>Loading...</div>}>
                         <Navbar categories={categories} />
+                        {children}
                     </Suspense>
-                    {children}
                 </main>
             </body>
         </html>
